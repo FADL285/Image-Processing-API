@@ -6,12 +6,15 @@ export const listImages = async () => {
   try {
     const files = await readdir(imagesPath, { withFileTypes: true });
     const images = files.filter((file) => !file.isDirectory());
-    const imagesName = [];
+    const imagesName: string[] = [];
     for (const image of images) {
-      imagesName.push(image.name);
+      imagesName.push(
+        image.name.substring(0, image.name.lastIndexOf('.')) || image.name
+      );
     }
     return imagesName;
   } catch (error) {
     console.error(error);
+    return [];
   }
 };
