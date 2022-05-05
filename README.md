@@ -4,6 +4,40 @@ This project aims to give you a real-world scenario in which you would read and 
 
 For this project, refactor and test as much as possible while you are building. Since you are using TypeScript and an unfamiliar library, it is sometimes easier to write and build in plain JS to see what your functions return; remember your submission needs to be in TypeScript. As your skills improve, typing in TypeScript will feel more intuitive. Make sure to remove any debugging code from your final submission.
 
-## Project Setup
+## Project setup
+```
+npm install
+```
 
-Will add them.
+### Start the server for development
+```
+npm run dev
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Start the server after build `production`
+```
+npm run start
+```
+
+### Run the unit tests
+```
+npm run test
+```
+
+### Lints and run prettier to auto format
+```
+npm run format
+```
+```
+npm run lint
+```
+
+### Lints and fixes files
+```
+npm run lint:fix
+```
