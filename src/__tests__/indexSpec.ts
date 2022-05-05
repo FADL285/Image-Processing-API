@@ -1,5 +1,6 @@
 import supertest from 'supertest';
 import app from '../index';
+import { listImages, thumbnailExists } from '../utilities/fsOperations';
 
 // supertest request object
 const request = supertest(app);
@@ -28,5 +29,17 @@ describe('Test Endpoint Response', () => {
   it('should return 404 status code when image not found', async () => {
     const response = await request.get('/api/images?filename=myphoto');
     expect(response.statusCode).toBe(404);
+  });
+});
+
+describe('File System Functionalities Test', () => {
+  it('should read all images in images folder and return array of images names and has fjord img', async () => {
+    const imagesArr = await listImages();
+    expect(imagesArr).toContain('fjord.jpg');
+  });
+
+  it('should check if fadl.jpg in thumbnail folder and return false', () => {
+    const isExist = thumbnailExists('fadl');
+    expect(isExist).toBeFalsy();
   });
 });
