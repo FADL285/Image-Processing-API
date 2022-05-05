@@ -5,8 +5,7 @@ import {
   thumbnailExists
 } from '../../utilities/fsOperations';
 import { resizeImage } from '../../utilities/sharp';
-import * as routeViews from '../../views/images';
-import { generateFileName } from '../../utilities/helpers';
+import { generateFileName, trimExtension } from '../../utilities/helpers';
 
 const router = Router();
 
@@ -23,13 +22,17 @@ router.get('/images', async (req: Request, res: Response) => {
 
   // IF image not found
   if (filename && !images.includes(filename + '.jpg')) {
-    return res.send(routeViews.fileNotFound());
+    return res.status(404).render('img-404');
   }
 
   // IF image found & width or height are provided
   if (images.includes(filename + '.jpg') && (width || height)) {
     if (!(width && +width > 0) || !(height && +height > 0))
-      return res.send('Invalid Params, width & height must be positive number');
+      return res
+        .status(422)
+        .send(
+          '<strong style="font-family: sans-serif; text-align: center">Invalid Params, width & height must be positive number</strong>'
+        );
 
     const thumbnailName = generateFileName(filename, width, height);
     if (!thumbnailExists(thumbnailName)) {
@@ -45,7 +48,7 @@ router.get('/images', async (req: Request, res: Response) => {
   }
 
   // File Name not provided -> Display available images
-  res.send(routeViews.noFilenameParam(images));
+  res.render('images', { images, trimExtension });
 });
 
 export default router;

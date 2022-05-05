@@ -1,16 +1,29 @@
-import { Router, Request, Response } from 'express';
+import {
+  Router,
+  Request,
+  Response,
+  ErrorRequestHandler,
+  NextFunction
+} from 'express';
 import imagesRouter from './api/images';
-import path from 'path';
 
 const router = Router();
-const viewsPath = path.join(__dirname, '..', 'views');
 
 router.get('/', (req: Request, res: Response) => {
-  const homeView = path.join(viewsPath, 'index.html');
-  res.sendFile(homeView);
+  res.render('index');
 });
-
 // Images Router
 router.use('/api', imagesRouter);
+//404 Page not found
+router.use((req: Request, res: Response) => res.status(404).render('404'));
+// 500 Server Errors Handlers
+router.use(
+  (
+    error: ErrorRequestHandler,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => res.status(500).render('500')
+);
 
 export default router;
