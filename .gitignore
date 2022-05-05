@@ -106,3 +106,5 @@ dist
 # Editors
 .vscode
 .idea
+/src/images/thumbnails/
+/read.todo

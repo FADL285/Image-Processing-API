@@ -1,5 +1,9 @@
-import { readdir } from 'fs/promises';
+import { readdir, mkdir } from 'fs/promises';
+import { existsSync } from 'fs';
 import path from 'path';
+
+const imagesPath = path.join(__dirname, '..', 'images');
+const thumbnailPath = path.join(__dirname, '..', 'images', 'thumbnails');
 
 export const listImages = async () => {
   const imagesPath = path.join(__dirname, '..', 'images');
@@ -17,8 +21,27 @@ export const listImages = async () => {
   }
 };
 
-export const getImagePath = (imageName: string, thumbnail = false): string => {
-  let imagesPath = path.join(__dirname, '..', 'images');
-  if (thumbnail) imagesPath = path.join(imagesPath, 'thumbnails');
-  return path.join(imagesPath, `${imageName}.jpg`);
+export const getImagePath = (
+  imageName: string,
+  extension = 'jpg',
+  thumbnail = false
+): string => {
+  const imgPath = thumbnail ? thumbnailPath : imagesPath;
+  return path.join(imgPath, `${imageName}.${extension}`);
+};
+
+export const thumbnailExists = (
+  imageName: string,
+  extension = 'jpg'
+): boolean => {
+  const filePath = path.join(thumbnailPath, `${imageName}.${extension}`);
+  return existsSync(filePath);
+};
+
+export const makeDirIfNotExists = async (path: string) => {
+  try {
+    if (!existsSync(path)) await mkdir(path);
+  } catch (error) {
+    console.log(error);
+  }
 };
