@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "clean": "rimraf dist/",
-    "copy-files": "copyfiles -u 1 -a true src/views/** dist/",
+    "copy-files": "copyfiles -u 1 -a true src/views/** src/images/** dist/",
     "build": "npm run clean && tsc && npm run copy-files",
     "start": "npm run build && node dist/index.js",
     "jasmine": "jasmine",
