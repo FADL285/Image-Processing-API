@@ -48,7 +48,7 @@ router.get('/images', async (req: Request, res: Response) => {
   }
 
   // File Name not provided -> Display available images
-  res.render('images', { images, trimExtension });
+  res.render('images', { images, trimExtension, url: req.originalUrl });
 });
 
 export default router;

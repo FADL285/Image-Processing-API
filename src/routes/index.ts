@@ -23,7 +23,10 @@ router.use(
     req: Request,
     res: Response,
     next: NextFunction
-  ) => res.status(500).render('500')
+  ) => {
+    console.log(error);
+    res.status(500).render('500');
+  }
 );
 
 export default router;

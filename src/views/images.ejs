@@ -1,14 +1,21 @@
 <%- include('includes/head') %>
 <h1 class='mt-5 mb-3'>Welcome to Image Processing API Project</h1>
-<p>Please provide <strong>filename</strong> query parameter(required), <strong>width</strong> & <strong>height</strong></p>
+<p>Please provide <strong>filename</strong> query parameter(required), <strong>width</strong> & <strong>height</strong>
+</p>
 <p>Available Images:</p>
 <ul>
     <% for(image of images){ %>
         <li>
-            <a href='?filename=<%=trimExtension(image)%>'><%=trimExtension(image)%></a>
+            <a href='?filename=<%= trimExtension(image); %>'><%= trimExtension(image); %></a>
         </li>
-    <%}%>
+    <% } %>
 </ul>
+<h3>Request Example:</h3>
+<p>
+    <a href='<%= url; %>?filename=<%= trimExtension(images[0]); %>&width=800&height=600'>
+        <%= url; %>?filename=<%= trimExtension(images[0]); %>&width=800&height=600
+    </a>
+</p>
 <!-- GitHub Source -->
 <%- include('includes/github') %>
 <%- include('includes/footer') %>
