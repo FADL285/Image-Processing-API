@@ -27,7 +27,7 @@ router.get('/images', async (req: Request, res: Response) => {
 
   // IF image found & width or height are provided
   if (images.includes(filename + '.jpg') && (width || height)) {
-    if (!(width && +width > 0) || !(height && +height > 0))
+    if ((width && !(+width > 0)) || (height && !(+height > 0)))
       return res
         .status(422)
         .send(
@@ -37,7 +37,7 @@ router.get('/images', async (req: Request, res: Response) => {
     const thumbnailName = generateFileName(filename, width, height);
     if (!thumbnailExists(thumbnailName)) {
       await resizeImage(filename, thumbnailName, width, height);
-      return res.sendFile(getImagePath(thumbnailName, 'jpg', true));
+      return res.status(201).sendFile(getImagePath(thumbnailName, 'jpg', true));
     }
     return res.sendFile(getImagePath(thumbnailName, 'jpg', true));
   }
