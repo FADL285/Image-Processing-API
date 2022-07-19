@@ -15,7 +15,7 @@ app.use(morgan('short'));
 app.use('/', router);
 
 // Start the Server
-app.listen(PORT, () => {
+app.listen(PORT, (): void => {
   console.log(`Server started at http://localhost:${PORT}`);
 });
 

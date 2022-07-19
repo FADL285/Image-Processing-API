@@ -22,7 +22,8 @@ router.use(
     error: ErrorRequestHandler,
     req: Request,
     res: Response,
-    next: NextFunction
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _next: NextFunction
   ) => {
     console.log(error);
     res.status(500).render('500');

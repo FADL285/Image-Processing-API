@@ -1,11 +1,11 @@
-import { readdir, mkdir } from 'fs/promises';
+import { readdir, mkdir, unlink } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 
 const imagesPath = path.join(__dirname, '..', 'images');
 const thumbnailPath = path.join(__dirname, '..', 'images', 'thumbnails');
 
-export const listImages = async () => {
+export const listImages = async (): Promise<string[]> => {
   const imagesPath = path.join(__dirname, '..', 'images');
   try {
     const files = await readdir(imagesPath, { withFileTypes: true });
@@ -38,10 +38,19 @@ export const thumbnailExists = (
   return existsSync(filePath);
 };
 
-export const makeDirIfNotExists = async (path: string) => {
+export const makeDirIfNotExists = async (path: string): Promise<void> => {
   try {
     if (!existsSync(path)) await mkdir(path);
   } catch (error) {
     console.log(error);
   }
+};
+
+export const deleteFile = async (path: string): Promise<boolean> => {
+  try {
+    await unlink(path);
+  } catch (error) {
+    return false;
+  }
+  return true;
 };

@@ -4,6 +4,10 @@ This project aims to give you a real-world scenario in which you would read and 
 
 For this project, refactor and test as much as possible while you are building. Since you are using TypeScript and an unfamiliar library, it is sometimes easier to write and build in plain JS to see what your functions return; remember your submission needs to be in TypeScript. As your skills improve, typing in TypeScript will feel more intuitive. Make sure to remove any debugging code from your final submission.
 
+<div align='center'>
+    <img src='readme_files/preview.png' alt='Site Preview' />
+</div>
+
 ## Project setup
 ```
 npm install
@@ -41,3 +45,24 @@ npm run lint
 ```
 npm run lint:fix
 ```
+
+
+## API Reference
+
+List available images which can be accessed through the endpoint
+
+```GET /api/images```
+
+Get specific image from the available images
+```GET /api/images?filename={IMAGE_NAME}```
+
+
+Create thumb version of image
+
+```GET /api/images/?filename={IMAGE_NAME}&height={HEIGHT}&width={WIDTH}```
+
+| Parameter | Type    | Required | Description                                 |
+|-----------|---------|----------|---------------------------------------------|
+| filename  | String  | true     | filename of the desired image to be resized |
+| height    | Integer | false    | height of the desired image                 |
+| width     | Integer | false    | width of the desired image                  |
