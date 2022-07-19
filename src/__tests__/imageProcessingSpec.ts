@@ -6,10 +6,21 @@ import {
   getImagePath,
   deleteFile
 } from '../utilities/fsOperations';
+import { resizeImage } from '../utilities/sharp';
 
 const request = supertest(app);
 
-describe('Image Processing Functionalities Test', () => {
+describe('Image Processing Functionalities Test', async () => {
+  it('should create image thumbnail from icelandwaterfall image and save it in thumbnail folder with icelandwaterfall_test_thumbnail', async () => {
+    await resizeImage(
+      'icelandwaterfall',
+      'icelandwaterfall_test_thumbnail',
+      400,
+      400
+    );
+    expect(thumbnailExists('icelandwaterfall_test_thumbnail')).toBe(true);
+  });
+
   it('If Thumbnail Exists will delete it and create the thumbnail -> will return true', async () => {
     const IMAGE_NAME = 'encenadaport_w800_h600';
     if (thumbnailExists(IMAGE_NAME))
